@@ -1,8 +1,13 @@
 <script setup>
+import { ref } from 'vue';
+import store from '@/store';
+
+
+const show = ref(store.getters.isAuthenticated)
 </script>
 
 <template>
-    <header>
+    <header v-show="show">
         <nav class="fixed top-0 w-full left-0 bg-[#11c3f5] z-50">
         <div class="mx-auto  px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
