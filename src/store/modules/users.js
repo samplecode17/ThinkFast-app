@@ -12,14 +12,14 @@ const getters = {
 
 const actions = {
     async register({dispatch}, form) {
-        await axios.post('/user/', form);
         let UserForm = new FormData();
         UserForm.append('first_name', form.first_name);
-        UserForm.append('second_name', form .second_name);
+        UserForm.append('second_name', form.second_name);
         UserForm.append('username', form.username);
-        UserForm.append('role', 'User');
         UserForm.append('password', form.password);
         UserForm.append('email', form.email);
+        UserForm.append('age',form.age);
+        await axios.post('/users', form);
         await dispatch('login', UserForm);
     },
     async login({dispatch}, login) {
