@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/services/appClient";
 
 const state = {
     games: null,
@@ -11,26 +11,26 @@ const getters = {
 };
 
 const actions = {
-    async createGame(game) {
-        await axios.post('games/', game);
+    async createGame({ commit }, game) {
+        await apiClient.post('/games/', game);
     },
     async getMyGames({ commit }, userId) {
-        const { data } = await axios.get(`games/my-games/${userId}`);
+        const { data } = await apiClient.get(`/games/my-games/${userId}`);
         commit('setGames', data);
     },
 
     async getGame({ commit }, gameId) {
-        const { data } = await axios.get(`games/${gameId}`);
+        const { data } = await apiClient.get(`/games/${gameId}`);
         commit('setGame', data);
     },
 
     async updateGame({ dispatch }, { id, form }) {
-        await axios.put(`games/${id}`, form);
+        await apiClient.put(`/games/${id}`, form);
         await dispatch('getGames');
     },
 
     async deleteGame({ dispatch }, id) {
-        await axios.delete(`games/${id}`);
+        await apiClient.delete(`/games/${id}`);
         await dispatch('getGames');
     }
 };

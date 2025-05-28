@@ -6,13 +6,23 @@ import { useRouter } from 'vue-router';
 const store = useStore();
 const router = useRouter();
 
-const show = computed(() => store.getters.isAuthenticated);
+// Computed property for navbar visibility from the store
+const show = computed(() => store.getters.stateNavBar);
+// Is autheticated ?
+const autheticated = computed(() => store.getters.isAuthenticated)
 
+// Logout 
 const logout = async () => {
   await store.dispatch('logOut');
   router.push('/login');
 };
 
+// Navigate to login page -> href but using vue @click :)
+const login = async () => {
+  router.push('/login');
+};
+
+//  (logic for Mobile menu)
 const showDropdown = ref(false);
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value;
@@ -20,10 +30,12 @@ const toggleDropdown = () => {
 </script>
 
 <template>
+  <!-- Show header/navbar only if 'show' is true -->
   <header v-show="show">
     <nav class="fixed top-0 w-full left-0 bg-[#11c3f5] z-50">
       <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
+          <!-- Mobile menu button (hidden on larger screens) -->
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
               type="button"
@@ -38,6 +50,7 @@ const toggleDropdown = () => {
             </button>
           </div>
 
+          <!-- Logo and main navigation links -->
           <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div class="flex shrink-0 items-center">
               <img class="h-8 w-auto" src="@/assets/ThinkLogo.svg" alt="Your Company" />
@@ -52,7 +65,9 @@ const toggleDropdown = () => {
             </div>
           </div>
 
-          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <!-- User menu and notifications - shown only if authenticated -->
+          <div v-if="autheticated" class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <!-- Notification button -->
             <button
               type="button"
               class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
@@ -67,6 +82,7 @@ const toggleDropdown = () => {
               </svg>
             </button>
 
+            <!-- User avatar and dropdown toggle -->
             <div class="relative ml-3">
               <div>
                 <button
@@ -83,6 +99,7 @@ const toggleDropdown = () => {
                 </button>
               </div>
 
+              <!-- Dropdown menu shown when toggled -->
               <div
                 v-if="showDropdown"
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
@@ -101,9 +118,15 @@ const toggleDropdown = () => {
               </div>
             </div>
           </div>
+
+          <!-- Show login link if not authenticated -->
+          <div v-if="!autheticated" class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <a @click="login" href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Login</a>
+          </div>
         </div>
       </div>
 
+      <!-- Mobile menu links -->
       <div class="sm:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pt-2 pb-3">
           <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Dashboard</a>
@@ -115,4 +138,3 @@ const toggleDropdown = () => {
     </nav>
   </header>
 </template>
-

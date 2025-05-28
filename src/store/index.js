@@ -5,6 +5,7 @@ import challenges from "./modules/challenges";
 import quiz from "./modules/quiz";
 import usergames from "./modules/usergames";
 import imagepost from "./modules/imagepost";
+import navbar from "./modules/navbar";
 
 export default createStore({
     modules: {
@@ -14,5 +15,6 @@ export default createStore({
       quiz,
       usergames,
       imagepost,
+      navbar
     }
 });

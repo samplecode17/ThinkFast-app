@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import imgbbAxios from "@/services/imageStorage"
 const API_KEY = import.meta.env.VITE_IMGBB_API_KEY
 
 const state = {
@@ -20,10 +19,10 @@ const actions = {
     commit('setUploading', true)
 
     try {
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${API_KEY}`,
+      const { data } = await imgbbAxios.post(
+        `upload?key=${API_KEY}`,
         formData,
-        { withCredentials: false }
+        {withCredentials: false}
       )
 
       commit('setImageUrl', data.data.url)
@@ -34,7 +33,7 @@ const actions = {
       commit('setUploading', false)
     }
   },
-  async deleteImagePreview({commit}){
+  async deleteImagePreview({ commit }) {
     commit('setImageUrl', null)
     commit('setUploading', false)
   }

@@ -92,7 +92,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { initFlowbite } from 'flowbite'
@@ -100,6 +100,10 @@ import Datepicker from 'flowbite-datepicker/Datepicker'
 
 const router = useRouter()
 const store = useStore()
+
+onBeforeMount(async () => {
+  await store.dispatch('deactivateNavBar')
+})
 
 const form = reactive({
   username: '',

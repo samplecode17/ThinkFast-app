@@ -1,58 +1,89 @@
-import axios from "axios";
+import apiClient from "@/services/appClient";
+
+const token = localStorage.getItem("token");
+if (token) {
+  apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+}
 
 const state = {
-    user: null,
+  user: null,
+  userId: null,
 };
 
 const getters = {
-    isAuthenticated: state => !!state.user,
-    stateUser: state => state.user,
+  isAuthenticated: (state) => !!state.user,
+  stateUser: (state) => state.user,
+  getUserId: (state) => state.userId,
 };
 
-
 const actions = {
-    async register({dispatch}, form) {
-        let UserForm = new FormData();
-        UserForm.append('first_name', form.first_name);
-        UserForm.append('second_name', form.second_name);
-        UserForm.append('username', form.username);
-        UserForm.append('password', form.password);
-        UserForm.append('email', form.email);
-        UserForm.append('age',form.age);
-        await axios.post('/users', form);
-        await dispatch('login', UserForm);
-    },
-    async login({dispatch}, login) {
-        await axios.post('/auth/token', login);
-        await dispatch('Me');
-    },
-    async Me({commit}){
-        let {data} = await axios.get('/auth/me');
-        await commit('setUser', data);
-    },
+  async register({ dispatch }, form) {
+    const formData = new FormData();
+    formData.append("first_name", form.first_name);
+    formData.append("second_name", form.second_name);
+    formData.append("username", form.username);
+    formData.append("password", form.password);
+    formData.append("email", form.email);
+    formData.append("age", form.age);
 
-    // eslint-disable-next-line no-empty-pattern
-    async deleteUser({}, id) {
-        await axios.delete(`user/${id}`);
-    },
-    async logOut({commit}) {
-        let user = null;
-        commit('logout', user);
+    await apiClient.post("/users", formData);
+    await dispatch("login", formData);
+  },
+
+  async login({ dispatch }, credentials) {
+    try {
+      const { data } = await apiClient.post("/auth/token", credentials);
+      const token = data.token || data.access_token;
+  
+      localStorage.setItem("token", token);
+      apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  
+      await dispatch("Me");
+    } catch (error) {
+      localStorage.removeItem("token");
+      delete apiClient.defaults.headers.common["Authorization"];
+      throw error;
     }
+  },
+
+  async Me({ commit }) {
+    try {
+      const { data } = await apiClient.get("/auth/me");
+      commit("setUser", data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        commit("logout");
+        localStorage.removeItem("token");
+        delete apiClient.defaults.headers.common["Authorization"];
+      }
+    }
+  },
+
+  async deleteUser(_, id) {
+    await apiClient.delete(`/user/${id}`);
+  },
+
+  async logOut({ commit }) {
+    commit("logout");
+    localStorage.removeItem("token");
+    delete apiClient.defaults.headers.common["Authorization"];
+  },
 };
 
 const mutations = {
-    setUser(state, username) {
-      state.user = username;
-    },
-    logout(state, user){
-      state.user = user;
-    },
+  setUser(state, user) {
+    state.user = user;
+    state.userId = user.id
+  },
+  logout(state) {
+    state.user = null;
+    state.userId = null;
+  },
 };
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations
+  state,
+  getters,
+  actions,
+  mutations,
 };

@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/services/appClient";
 
 const state = {
     quiz: null
@@ -10,22 +10,22 @@ const getters = {
 
 const actions = {
     async createQuiz({ commit }, quiz) {
-        const { data } = await axios.post('quiz/', quiz);
+        const { data } = await apiClient.post('quiz/', quiz);
         commit('setQuiz', data);
     },
 
     async getQuiz({ commit }, quizId) {
-        const { data } = await axios.get(`quiz/${quizId}`);
+        const { data } = await apiClient.get(`quiz/${quizId}`);
         commit('setQuiz', data);
     },
 
     async updateQuiz({ commit }, { id, form }) {
-        const { data } = await axios.put(`quiz/${id}`, form);
+        const { data } = await apiClient.put(`quiz/${id}`, form);
         commit('setQuiz', data);
     },
 
     async deleteQuiz({ commit }, id) {
-        await axios.delete(`quiz/${id}`);
+        await apiClient.delete(`quiz/${id}`);
         commit('setQuiz', null); // Limpia el estado tras eliminar
     }
 };
