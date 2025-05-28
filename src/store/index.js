@@ -4,6 +4,7 @@ import games from './modules/games';
 import challenges from "./modules/challenges";
 import quiz from "./modules/quiz";
 import usergames from "./modules/usergames";
+import imagepost from "./modules/imagepost";
 
 export default createStore({
     modules: {
@@ -12,5 +13,6 @@ export default createStore({
       challenges,
       quiz,
       usergames,
+      imagepost,
     }
 });
