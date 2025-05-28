@@ -1,22 +1,21 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import axios from 'axios';
 
 import App from './App.vue'
 import router from './router';
 import store from './store';
 import 'flowbite';
 import 'flowbite-datepicker'
+import apiClient from './services/appClient';
 
 
 
 const app = createApp(App);
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:8000/';  // the FastAPI backend
 
-axios.interceptors.response.use(undefined, function (error) {
+
+apiClient.interceptors.response.use(undefined, function (error) {
   if (error) {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {

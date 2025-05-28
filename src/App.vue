@@ -5,7 +5,7 @@ import NavigationBar from './components/NavigationBar.vue';
 <template>
   <div id="app">
     <NavigationBar />
-    <div class="max-w-full">
+    <div class="max-w-full pt-16">
       <router-view/>
     </div>
   </div>
