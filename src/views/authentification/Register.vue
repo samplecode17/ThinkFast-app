@@ -71,18 +71,18 @@
               </div>
               <div class="ml-3 text-sm">
                 <label for="terms" class="font-light text-gray-500">
-                  I accept the <a class="font-medium text-[#11c3f5] hover:underline" href="#">Terms and Conditions</a>
+                  I accept the <a class="font-medium text-thinkfast hover:underline" href="#">Terms and Conditions</a>
                 </label>
               </div>
             </div>
 
             <button type="submit"
-                    class="w-full text-white bg-[#11c3f5] hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    class="w-full text-white bg-thinkfast hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
               Create an account
             </button>
 
             <p class="text-sm font-light text-gray-500">
-              Already have an account? <a href="#" class="font-medium text-[#11c3f5] hover:underline">Login here</a>
+              Already have an account? <a href="#" class="font-medium text-thinkfast hover:underline">Login here</a>
             </p>
           </form>
         </div>
@@ -157,7 +157,6 @@ const submit = async () => {
 }
 
 onMounted(() => {
-  initFlowbite()
 
   const inputEl = datepickerInput.value
   if (!inputEl) return

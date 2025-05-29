@@ -59,8 +59,26 @@ const actions = {
     }
   },
 
+  async editUser(_, userId, form){
+    const formData = new FormData();
+    formData.append("first_name", form.first_name);
+    formData.append("second_name", form.second_name);
+    formData.append("username", form.username);
+    formData.append("password", form.password);
+    formData.append("email", form.email);
+    formData.append("age", form.age);
+    try{
+      const {data} = await apiClient.put(`/users/${userId}`, formData);
+      commit("setUser", data);
+    }catch(error){
+      throw error;
+    }
+    
+  
+  },
+
   async deleteUser(_, id) {
-    await apiClient.delete(`/user/${id}`);
+    await apiClient.delete(`/users/${id}`);
   },
 
   async logOut({ commit }) {

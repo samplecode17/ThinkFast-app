@@ -24,13 +24,13 @@ const actions = {
         commit('setGame', data);
     },
 
-    async updateGame({ dispatch }, { id, form }) {
-        await apiClient.put(`/games/${id}`, form);
+    async updateGame({ dispatch }, userId, form) {
+        await apiClient.put(`/games/${userId}`, form);
         await dispatch('getGames');
     },
 
-    async deleteGame({ dispatch }, id) {
-        await apiClient.delete(`/games/${id}`);
+    async deleteGame({ dispatch }, userId) {
+        await apiClient.delete(`/games/${userId}`);
         await dispatch('getGames');
     }
 };
