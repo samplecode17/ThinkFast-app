@@ -44,24 +44,29 @@
 </div>
 </template>
   
-  <script setup>
-  import { computed, ref } from 'vue'
-  import { useStore } from 'vuex'
-  
-  const store = useStore()
-  
-  // Reactive access to categories from the store
-  const categories = computed(() => store.getters.stateCategories)
-  
-  // Local component state
-  const isOpen = ref(false)
-  const selectedCategory = ref(null) // Currently selected category object
-  // Handle category selection
-  function selectCategory(category) {
-    selectedCategory.value = category
-    isOpen.value = false
-    // emit id
-    emit('select', category)
-  }
-  </script>
+<script setup>
+import { computed, ref, onBeforeMount, defineEmits } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+onBeforeMount(async () => {
+await store.dispatch('getCategories')
+})
+
+const emit = defineEmits(['select'])
+// Reactive access to categories from the store
+const categories = computed(() => store.getters.stateCategories)
+
+// Local component state
+const isOpen = ref(false)
+const selectedCategory = ref(null) // Currently selected category object
+// Handle category selection
+function selectCategory(category) {
+selectedCategory.value = category
+isOpen.value = false
+// emit id
+emit('select', category)
+}
+</script>
   

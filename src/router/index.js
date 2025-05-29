@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
 import CreateGame from '@/views/gamesCreator/CreateGame.vue'
+import DifficultySelector from '@/components/difficulty/DifficultySelector.vue'
 import store from '@/store'
 // the routes
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/prova',
+    name: 'prova',
+    component: DifficultySelector,
   },
   //Creator section
   {

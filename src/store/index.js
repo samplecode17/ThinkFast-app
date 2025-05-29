@@ -7,6 +7,7 @@ import usergames from "./modules/usergames";
 import imagepost from "./modules/imagepost";
 import categories from "./modules/categories";
 import navbar from "./modules/navbar";
+import difficulties from "./modules/difficulties";
 
 export default createStore({
     modules: {
@@ -18,5 +19,6 @@ export default createStore({
       imagepost,
       navbar,
       categories,
+      difficulties,
     }
 });

@@ -19,8 +19,15 @@
             </div>
 
             <div class="mb-4">
-              <label for="difficulty" class="block font-semibold mb-1">Difficulty (ID)</label>
-              <input v-model.number="form.difficulty_id" id="difficulty" type="number" min="0" class="w-full px-3 py-2 border rounded" />
+              <label class="block font-semibold mb-1">Difficulty</label>
+              <div class="flex items-start gap-4" >
+                <div class="flex-1">
+                  <DifficultySelector @select="handleDifficultySelect"/>
+                </div>
+                <div class="shrink-0 pt-2 ">
+                  <DifficultyCreatorButton />
+                </div>
+              </div>
             </div>
 
             <!-- Category Selector and Creator -->
@@ -31,7 +38,7 @@
                   <CategorySelector @select="handleCategorySelect"/>
                 </div>
                 <div class="shrink-0 pt-2 ">
-                  <CategoryCreator />
+                  <CategoryCreatorButton />
                 </div>
               </div>
             </div>
@@ -60,14 +67,15 @@
 import { reactive, computed, watch, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import ImageUploader from '@/components/ImageUploader.vue'
-import CategoryCreator from '@/components/category/CategoryCreatorButton.vue'
+import CategoryCreatorButton from '@/components/category/CategoryCreatorButton.vue'
 import CategorySelector from '@/components/category/CategorySelector.vue'
+import DifficultyCreatorButton from '@/components/difficulty/DifficultyCreatorButton.vue'
+import DifficultySelector from '@/components/difficulty/DifficultySelector.vue'
 
 const store = useStore()
 
 onBeforeMount(async () => {
   await store.dispatch('activateNavBar')
-  await store.dispatch('getCategories')
 })
 
 const imageUrl = computed(() => store.getters['imagepost/uploadedImageUrl'])
@@ -92,6 +100,10 @@ watch(imageUrl, (url) => {
 // Handle category selection
 function handleCategorySelect(category) {
   form.category_id = category.id
+}
+
+function handleDifficultySelect(difficulty) {
+  form.difficulty_id = difficulty.id
 }
 
 // Submit game
