@@ -10,23 +10,23 @@ const getters = {
 
 const actions = {
     async createQuiz({ commit }, quiz) {
-        const { data } = await apiClient.post('quiz/', quiz);
+        const { data } = await apiClient.post('/quiz/', quiz);
         commit('setQuiz', data);
     },
 
     async getQuiz({ commit }, quizId) {
-        const { data } = await apiClient.get(`quiz/${quizId}`);
+        const { data } = await apiClient.get(`/quiz/${quizId}`);
         commit('setQuiz', data);
     },
 
-    async updateQuiz({ commit }, { id, form }) {
-        const { data } = await apiClient.put(`quiz/${id}`, form);
+    async updateQuiz({ commit }, id, form) {
+        const { data } = await apiClient.put(`/quiz/${id}`, form);
         commit('setQuiz', data);
     },
 
     async deleteQuiz({ commit }, id) {
-        await apiClient.delete(`quiz/${id}`);
-        commit('setQuiz', null); // Limpia el estado tras eliminar
+        await apiClient.delete(`/quiz/${id}`);
+        commit('setQuiz', null); 
     }
 };
 

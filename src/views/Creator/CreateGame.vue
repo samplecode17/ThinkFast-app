@@ -108,10 +108,6 @@ function handleDifficultySelect(difficulty) {
 
 // Submit game
 const submitGame = async () => {
-  if (!authenticated) {
-    alert("You must be authenticated to create a game.")
-    return
-  }
 
   try {
     form.user_id = store.getters.getUserId

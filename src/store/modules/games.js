@@ -2,12 +2,14 @@ import apiClient from "@/services/appClient";
 
 const state = {
     games: null,
-    game: null
+    game: null,
+    gameId: null,
 };
 
 const getters = {
     stateGames: state => state.games,
     stateGame: state => state.game,
+    getGameId: state => state.gameId,
 };
 
 const actions = {
@@ -41,6 +43,7 @@ const mutations = {
     },
     setGame(state, game) {
         state.game = game;
+        state.gameId = game.id
     }
 };
 

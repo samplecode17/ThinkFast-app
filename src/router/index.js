@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
-import CreateGame from '@/views/gamesCreator/CreateGame.vue'
+import CreateGame from '@/views/Creator/CreateGame.vue'
 import DifficultySelector from '@/components/difficulty/DifficultySelector.vue'
 import store from '@/store'
+import NumberSelector from '@/components/NumberSelector.vue'
+import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
 // the routes
 const routes = [
   {
@@ -22,17 +24,22 @@ const routes = [
     name: 'Login',
     component: Login,
   },
-  {
-    path: '/prova',
-    name: 'prova',
-    component: DifficultySelector,
-  },
   //Creator section
   {
     path: '/creator/games/create',
     name: 'Creating games',
     component: CreateGame,
     meta: { requiresAuth: true }, // Route requires authentication
+  },
+  {
+    path: '/creator/games/:game_id/challenges/create',
+    name: 'Creating challenge quiz',
+    component: CreateChallengeQuiz,
+  },
+  {
+    path: '/prova',
+    name: 'prova',
+    component: CreateChallengeQuiz,
   },
 ]
 

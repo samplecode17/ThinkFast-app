@@ -17,10 +17,6 @@ const logout = async () => {
   router.push('/login');
 };
 
-// Navigate to login page -> href but using vue @click :)
-const login = async () => {
-  router.push('/login');
-};
 
 //  (logic for Mobile menu)
 const showDropdown = ref(false);
@@ -121,7 +117,7 @@ const toggleDropdown = () => {
 
           <!-- Show login link if not authenticated -->
           <div v-if="!autheticated" class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <a @click="login" href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Login</a>
+            <a href="/login" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Login</a>
           </div>
         </div>
       </div>
