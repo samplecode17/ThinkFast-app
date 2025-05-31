@@ -3,10 +3,9 @@ import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
 import CreateGame from '@/views/Creator/CreateGame.vue'
-import DifficultySelector from '@/components/difficulty/DifficultySelector.vue'
 import store from '@/store'
-import NumberSelector from '@/components/NumberSelector.vue'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
+import GameCard from '@/components/cards/GameCard.vue'
 // the routes
 const routes = [
   {
@@ -39,7 +38,7 @@ const routes = [
   {
     path: '/prova',
     name: 'prova',
-    component: CreateChallengeQuiz,
+    component: GameCard,
   },
 ]
 
