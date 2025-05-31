@@ -1,32 +1,3 @@
-<script setup>
-import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-
-const store = useStore();
-const router = useRouter();
-
-// Computed property for navbar visibility from the store
-const show = computed(() => store.getters.stateNavBar);
-// Is autheticated ?
-const autheticated = computed(() => store.getters.isAuthenticated)
-
-const user = computed(() => store.getters.stateUser)
-
-// Logout 
-const logout = async () => {
-  await store.dispatch('logOut');
-  router.push('/login');
-};
-
-
-//  (logic for Mobile menu)
-const showDropdown = ref(false);
-const toggleDropdown = () => {
-  showDropdown.value = !showDropdown.value;
-};
-</script>
-
 <template>
   <!-- Show header/navbar only if 'show' is true -->
   <header v-show="show">
@@ -55,10 +26,8 @@ const toggleDropdown = () => {
             </div>
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Dashboard</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Team</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Projects</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Calendar</a>
+                <a v-if="autheticated" href="/games/All" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Games</a>
+                <a v-if="autheticated" href="/creator/games" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Creator</a>
               </div>
             </div>
           </div>
@@ -128,8 +97,8 @@ const toggleDropdown = () => {
       <!-- Mobile menu links -->
       <div class="sm:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pt-2 pb-3">
-          <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Dashboard</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
+          <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Games</a>
+          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Creator</a>
           <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
           <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
         </div>
@@ -137,3 +106,31 @@ const toggleDropdown = () => {
     </nav>
   </header>
 </template>
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
+const store = useStore();
+const router = useRouter();
+
+// Computed property for navbar visibility from the store
+const show = computed(() => store.getters.stateNavBar);
+// Is autheticated ?
+const autheticated = computed(() => store.getters.isAuthenticated)
+
+const user = computed(() => store.getters.stateUser)
+
+// Logout 
+const logout = async () => {
+  await store.dispatch('logOut');
+  router.push('/login');
+};
+
+
+//  (logic for Mobile menu)
+const showDropdown = ref(false);
+const toggleDropdown = () => {
+  showDropdown.value = !showDropdown.value;
+};
+</script>

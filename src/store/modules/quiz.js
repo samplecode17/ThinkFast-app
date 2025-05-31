@@ -19,7 +19,7 @@ const actions = {
         commit('setQuiz', data);
     },
 
-    async updateQuiz({ commit }, id, form) {
+    async updateQuiz({ commit }, {id, form}) {
         const { data } = await apiClient.put(`/quiz/${id}`, form);
         commit('setQuiz', data);
     },

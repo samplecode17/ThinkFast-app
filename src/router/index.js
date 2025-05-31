@@ -5,7 +5,8 @@ import Register from '@/views/authentification/Register.vue'
 import CreateGame from '@/views/Creator/CreateGame.vue'
 import store from '@/store'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
-import GameCard from '@/components/cards/GameCard.vue'
+import ListMyGames from '@/views/Creator/ListMyGames.vue'
+import ListAllGames from '@/views/Games/ListAllGames.vue'
 // the routes
 const routes = [
   {
@@ -36,10 +37,17 @@ const routes = [
     component: CreateChallengeQuiz,
   },
   {
-    path: '/prova',
-    name: 'prova',
-    component: GameCard,
+    path: '/creator/games',
+    name: 'List of all my games',
+    component: ListMyGames,
+    meta: { requiresAuth: true },
   },
+  {
+    path: '/games/All',
+    name: 'All games list',
+    component: ListAllGames,
+    meta: { requiresAuth: true },
+  }
 ]
 
 const router = createRouter({
