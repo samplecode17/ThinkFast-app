@@ -31,7 +31,7 @@ const actions = {
         const { data } = await apiClient.get(`/challenges/${challengeId}`);
         commit('setChallenge', data);
     },
-    async updateChallenge({ dispatch }, id, form ) {
+    async updateChallenge({ dispatch }, {id, form} ) {
         await apiClient.put(`/challenges/${id}`, form);
         await dispatch('getChallenges');
     },

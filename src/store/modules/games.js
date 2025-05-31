@@ -2,6 +2,7 @@ import apiClient from "@/services/appClient";
 
 const state = {
     games: null,
+    myGames: null,
     game: null,
     gameId: null,
 };
@@ -9,6 +10,7 @@ const state = {
 const getters = {
     stateGames: state => state.games,
     stateGame: state => state.game,
+    stateMyGames: state => state.myGames,
     getGameId: state => state.gameId,
 };
 
@@ -18,6 +20,10 @@ const actions = {
     },
     async getMyGames({ commit }, userId) {
         const { data } = await apiClient.get(`/games/my-games/${userId}`);
+        commit('setMyGames', data);
+    },
+    async getAllGames({ commit }) {
+        const { data } = await apiClient.get(`/games/`);
         commit('setGames', data);
     },
 
@@ -26,7 +32,7 @@ const actions = {
         commit('setGame', data);
     },
 
-    async updateGame({ dispatch }, userId, form) {
+    async updateGame({ dispatch }, {userId, form}) {
         await apiClient.put(`/games/${userId}`, form);
         await dispatch('getGames');
     },
@@ -43,8 +49,11 @@ const mutations = {
     },
     setGame(state, game) {
         state.game = game;
-        state.gameId = game.id
-    }
+        state.gameId = game.id;
+    },
+    setMyGames(state, games) {
+        state.myGames = games;
+    } 
 };
 
 export default {

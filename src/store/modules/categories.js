@@ -2,12 +2,16 @@ import apiClient from "@/services/appClient";
 
 const state = {
     categories: null,
-    category: null
+    category: null,
+    userCategories: null,
+    usedCategories: null,
 };
 
 const getters = {
     stateCategories: state => state.categories,
     stateCategory: state => state.category,
+    stateUserCategories: state=> state.userCategories,
+    stateUsedCategories: state => state.usedCategories
 };
 
 const actions = {
@@ -19,13 +23,21 @@ const actions = {
         const { data } = await apiClient.get(`/categories/`);
         commit('setCategories', data);
     },
-
+    async getUsedCategories({ commit }) {
+        const { data } = await apiClient.get(`/categories/used/`);
+        commit('setUsedCategories', data);
+    },
     async getCategory({ commit }, categoryId) {
         const { data } = await apiClient.get(`/categories/${categoryId}`);
         commit('setCategory', data);
     },
+    async getUserCategories({ commit }, Id) {
+        console.log(Id)
+        const { data } = await apiClient.get(`/categories/myGames/${Id}`);
+        commit('setUserCategories', data);
+    },
 
-    async updateCategory({ dispatch }, categoryId, form) {
+    async updateCategory({ dispatch }, {categoryId, form}) {
         await apiClient.put(`/categories/${categoryId}`, form);
         await dispatch('getCategories');
     },
@@ -42,7 +54,14 @@ const mutations = {
     },
     setCategory(state, category) {
         state.category = category;
-    }
+    },
+    setUsedCategories(state, categories){
+        state.usedCategories = categories;
+    },
+    setUserCategories(state, categories){
+        state.userCategories = categories;
+    },
+
 };
 
 export default {

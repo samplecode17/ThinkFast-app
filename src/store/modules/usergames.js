@@ -33,13 +33,12 @@ const actions = {
 
     async updateUserGame({ dispatch }, { userId, gameId, form }) {
         await apiClient.put(`usergames/user:${userId}/game:${gameId}`, form);
-        // Opcional: volver a obtener la lista
         await dispatch('getUserGame', { userId, gameId });
     },
 
     async deleteUserGame({ commit }, { userId, gameId }) {
         await apiClient.delete(`usergames/user:${userId}/game:${gameId}`);
-        commit('setUserGame', null); // limpia la entidad específica
+        commit('setUserGame', null);
     }
 };
 

@@ -4,9 +4,9 @@ const token = localStorage.getItem("token");
 if (token) {
   apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
-
 const state = {
   user: null,
+  usersById: {},
   userId: null,
 };
 
@@ -14,6 +14,7 @@ const getters = {
   isAuthenticated: (state) => !!state.user,
   stateUser: (state) => state.user,
   getUserId: (state) => state.userId,
+  getUserById: (state) => (id) => state.usersById[id] || null,
 };
 
 const actions = {
@@ -27,17 +28,17 @@ const actions = {
     formData.append("age", form.age);
 
     await apiClient.post("/users", formData);
-    await dispatch("login", formData);
+    await dispatch("login", form);
   },
 
   async login({ dispatch }, credentials) {
     try {
       const { data } = await apiClient.post("/auth/token", credentials);
       const token = data.token || data.access_token;
-  
+
       localStorage.setItem("token", token);
       apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  
+
       await dispatch("Me");
     } catch (error) {
       localStorage.removeItem("token");
@@ -51,7 +52,7 @@ const actions = {
       const { data } = await apiClient.get("/auth/me");
       commit("setUser", data);
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response?.status === 401) {
         commit("logout");
         localStorage.removeItem("token");
         delete apiClient.defaults.headers.common["Authorization"];
@@ -59,7 +60,16 @@ const actions = {
     }
   },
 
-  async editUser(_, userId, form){
+  async getUser({ commit }, id) {
+    try {
+      const { data } = await apiClient.get(`/users/${id}`);
+      commit("setUserById", data);
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  async editUser({ commit }, { userId, form }) {
     const formData = new FormData();
     formData.append("first_name", form.first_name);
     formData.append("second_name", form.second_name);
@@ -67,14 +77,14 @@ const actions = {
     formData.append("password", form.password);
     formData.append("email", form.email);
     formData.append("age", form.age);
-    try{
-      const {data} = await apiClient.put(`/users/${userId}`, formData);
+
+    try {
+      const { data } = await apiClient.put(`/users/${userId}`, formData);
       commit("setUser", data);
-    }catch(error){
+      commit("setUserById", data);
+    } catch (error) {
       throw error;
     }
-    
-  
   },
 
   async deleteUser(_, id) {
@@ -91,11 +101,15 @@ const actions = {
 const mutations = {
   setUser(state, user) {
     state.user = user;
-    state.userId = user.id
+    state.userId = user.id;
+  },
+  setUserById(state, user) {
+    state.usersById[user.id] = user;
   },
   logout(state) {
     state.user = null;
     state.userId = null;
+    state.usersById = {};
   },
 };
 

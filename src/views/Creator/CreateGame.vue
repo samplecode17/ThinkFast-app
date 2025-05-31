@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-xl mx-auto p-4 sm:p-6 bg-white shadow rounded">
+  <div class="max-w-screen-full  mx-auto p-10 sm:p-6s rounded">
     <h2 class="text-2xl font-bold mb-4">New game</h2>
 
     <form @submit.prevent="submitGame">

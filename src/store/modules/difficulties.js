@@ -25,7 +25,7 @@ const actions = {
         commit('setDifficulty', data);
     },
 
-    async updateDifficulty({ dispatch }, difficultyId, form) {
+    async updateDifficulty({ dispatch }, {difficultyId, form}) {
         await apiClient.put(`/difficulties/${difficultyId}`, form);
         await dispatch('getDifficulties');
     },
