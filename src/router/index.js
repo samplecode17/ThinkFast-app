@@ -2,8 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
-import CreateGame from '@/views/gamesCreator/CreateGame.vue'
+import CreateGame from '@/views/Creator/CreateGame.vue'
 import store from '@/store'
+import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
+import GameCard from '@/components/cards/GameCard.vue'
 // the routes
 const routes = [
   {
@@ -27,6 +29,16 @@ const routes = [
     name: 'Creating games',
     component: CreateGame,
     meta: { requiresAuth: true }, // Route requires authentication
+  },
+  {
+    path: '/creator/games/:game_id/challenges/create',
+    name: 'Creating challenge quiz',
+    component: CreateChallengeQuiz,
+  },
+  {
+    path: '/prova',
+    name: 'prova',
+    component: GameCard,
   },
 ]
 
