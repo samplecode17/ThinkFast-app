@@ -69,6 +69,7 @@ const actions = {
     }
   },
 
+
   async editUser({ commit }, { userId, form }) {
     const formData = new FormData();
     formData.append("first_name", form.first_name);
