@@ -70,9 +70,7 @@ await store.dispatch('getUserCategories',userId)
 
 
 const games = computed(() => store.getters.stateMyGames)
-console.log(games)
 const categories = computed(() => store.getters.stateUserCategories)
-console.log(categories)
 
 const filteredGames = computed(() => {
   if (!selectedCategory.value) return games.value

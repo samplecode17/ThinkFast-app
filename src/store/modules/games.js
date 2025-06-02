@@ -40,6 +40,14 @@ const actions = {
     async deleteGame({ dispatch }, userId) {
         await apiClient.delete(`/games/${userId}`);
         await dispatch('getGames');
+    },
+    async toggleUpVote({dispatch},gameId){
+        try{
+          await apiClient.post(`/games/${gameId}/upVote`)
+          await dispatch('getGame', gameId)
+        } catch (err) {
+          console.error('Error upVoting :', err)
+        }
     }
 };
 

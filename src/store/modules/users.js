@@ -97,6 +97,15 @@ const actions = {
     localStorage.removeItem("token");
     delete apiClient.defaults.headers.common["Authorization"];
   },
+
+  async toggleFollow({dispatch},userId){
+    try{
+      await apiClient.post(`/users/${userId}/follow`)
+      await dispatch('getUser', userId)
+    } catch (err) {
+      console.error('Error following :', err)
+    }
+  }
 };
 
 const mutations = {
