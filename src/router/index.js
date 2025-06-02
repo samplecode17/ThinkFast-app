@@ -7,6 +7,8 @@ import store from '@/store'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
 import ListMyGames from '@/views/Creator/ListMyGames.vue'
 import ListAllGames from '@/views/Games/ListAllGames.vue'
+
+
 import GameSection from '@/views/Games/GameSection.vue'
 // the routes
 const routes = [
@@ -50,7 +52,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/prova',
+    path: '/games/:game_id',
     name: 'All games list',
     component: GameSection,
   }

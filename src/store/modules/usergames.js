@@ -2,20 +2,31 @@ import apiClient from "@/services/appClient";
 
 const state = {
     usergames: null,
-    usergame: null
+    usergame: null,
+    usergameExists: false,
 };
 
 const getters = {
     stateUserGames: state => state.usergames,
     stateUserGame: state => state.usergame,
+    existsUsergame: state => state.usergameExists,
 };
 
 const actions = {
-    async createUserGame({ dispatch }, usergame) {
+    async createUserGame(_, usergame) {
         await apiClient.post('usergames/', usergame);
-        // Podrías hacer dispatch a otra acción si necesitas refrescar una lista
+        
     },
-
+    async usergameExists({ dispatch, commit }, { userId, gameId }) {
+        const { data } = await apiClient.get(`usergames/exists/user:${userId}/game:${gameId}`);
+        if (data?.exists === true) {
+            commit('setUserGameExists', true);
+            await dispatch('getUserGame', { userId, gameId });
+        } else {
+            commit('setUserGameExists', false);
+        }
+    },
+    
     async getUserGame({ commit }, { userId, gameId }) {
         const { data } = await apiClient.get(`usergames/user:${userId}/game:${gameId}`);
         commit('setUserGame', data);
@@ -48,6 +59,9 @@ const mutations = {
     },
     setUserGame(state, usergame) {
         state.usergame = usergame;
+    },
+    setUserGameExists(state, response) {
+        state.usergameExists = response
     }
 };
 
