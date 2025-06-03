@@ -60,7 +60,7 @@
                   <span class="sr-only">Open user menu</span>
                   <img
                     class="size-8 rounded-full"
-                    :src="user?.image || 'https://via.placeholder.com/256'"
+                    :src="user?.profile_image || 'https://i.ibb.co/Kc2Cs3rQ/blank-profile-picture-973460-640.webp'"
                     alt="User avatar"
                   />
 

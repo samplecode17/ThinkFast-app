@@ -95,7 +95,6 @@
 import { ref, reactive, onMounted, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { initFlowbite } from 'flowbite'
 import Datepicker from 'flowbite-datepicker/Datepicker'
 
 const router = useRouter()
@@ -109,7 +108,7 @@ const form = reactive({
   username: '',
   email: '',
   password: '',
-  date: '' // will be updated manually
+  date: ''
 })
 
 const confirmPassword = ref('')

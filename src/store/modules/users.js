@@ -19,16 +19,12 @@ const getters = {
 
 const actions = {
   async register({ dispatch }, form) {
+
+    await apiClient.post("/users", form);
     const formData = new FormData();
-    formData.append("first_name", form.first_name);
-    formData.append("second_name", form.second_name);
     formData.append("username", form.username);
     formData.append("password", form.password);
-    formData.append("email", form.email);
-    formData.append("age", form.age);
-
-    await apiClient.post("/users", formData);
-    await dispatch("login", form);
+    await dispatch("login", formData);
   },
 
   async login({ dispatch }, credentials) {
@@ -71,16 +67,8 @@ const actions = {
 
 
   async editUser({ commit }, { userId, form }) {
-    const formData = new FormData();
-    formData.append("first_name", form.first_name);
-    formData.append("second_name", form.second_name);
-    formData.append("username", form.username);
-    formData.append("password", form.password);
-    formData.append("email", form.email);
-    formData.append("age", form.age);
-
     try {
-      const { data } = await apiClient.put(`/users/${userId}`, formData);
+      const { data } = await apiClient.put(`/users/${userId}`, form);
       commit("setUser", data);
       commit("setUserById", data);
     } catch (error) {

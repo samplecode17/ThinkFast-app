@@ -53,7 +53,7 @@
     </div>
 
     <!-- Games list -->
-    <div class="columns-2 md:columns-4 gap-4 space-y-4">
+    <div class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
     <GameCard
         v-for="game in filteredGames"
         :key="game.id"
@@ -64,7 +64,7 @@
         :image-link="game.image"
         button-name="Play"
         class="break-inside-avoid mb-4"
-    />
+    /> 
     </div>
 </div>
 </template>
