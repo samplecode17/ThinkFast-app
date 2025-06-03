@@ -77,7 +77,7 @@ import GameCard from '@/components/cards/GameCard.vue';
 const store = useStore();
 
 const selectedCategory = ref(null);
-const searchTerm = ref('');  // <-- nuevo ref para el texto de búsqueda
+const searchTerm = ref(''); 
 
 onBeforeMount(async () => {
   await store.dispatch('activateNavBar')

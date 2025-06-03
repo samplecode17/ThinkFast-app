@@ -26,6 +26,10 @@ const actions = {
         const { data } = await apiClient.get(`/games/`);
         commit('setGames', data);
     },
+    async getRecommendedGames({ commit }, categoryId) {
+        const { data } = await apiClient.get(`/games/recommended/${categoryId}`);
+        commit('setGames', data);
+    },
 
     async getGame({ commit }, gameId) {
         const { data } = await apiClient.get(`/games/${gameId}`);

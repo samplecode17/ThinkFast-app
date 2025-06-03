@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full m-auto justify-center h-auto rounded shadow-2xl p-5" v-if="!answered">
+    <div class="w-6/9 m-auto justify-center h-auto rounded px-10" v-if="!answered">
         <!-- Image container square with fixed aspect ratio -->
         <div class="w-2/3 mx-auto rounded-lg border border-gray-300 overflow-hidden aspect-[13/9] mb-4">
             <img :src="image" alt="Quiz image" class="w-full h-full object-cover" />

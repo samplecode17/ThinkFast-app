@@ -1,6 +1,6 @@
 <template>
     <div class="w-full p-4">
-        <span class="font-bold text-xl" style="font-family: 'Roboto', sans-serif;">
+        <span class="font-bold mb-4 text-2xl" style="font-family: 'Roboto', sans-serif;">
             {{ game.name }}
         </span>
     </div>
@@ -15,7 +15,7 @@
                     {{ formattedFollowers }} followers
                 </span>
             </div>
-            <button type="button" @click="toggleFollow"
+            <button v-show="actualUser != creator.id" type="button" @click="toggleFollow"
                 class="px-5 py-2.5 text-base font-medium inline-flex items-center rounded-lg transition-all duration-300 w-full sm:w-auto justify-center"
                 :class="[
                     creator.followed_by_me
@@ -66,6 +66,7 @@ onBeforeMount(async () => {
 
 const creator = computed(() => store.getters.getUserById(props.creatorId))
 const game = computed(() => store.getters.stateGame)
+const actualUser = computed(() => store.getters.getUserId )
 
 const formattedFollowers = computed(() => {
     const count = creator.value?.followers_count || 0
