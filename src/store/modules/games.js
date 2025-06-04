@@ -26,6 +26,10 @@ const actions = {
         const { data } = await apiClient.get(`/games/`);
         commit('setGames', data);
     },
+    async getRecommendedGames({ commit }, categoryId) {
+        const { data } = await apiClient.get(`/games/recommended/${categoryId}`);
+        commit('setGames', data);
+    },
 
     async getGame({ commit }, gameId) {
         const { data } = await apiClient.get(`/games/${gameId}`);
@@ -40,6 +44,14 @@ const actions = {
     async deleteGame({ dispatch }, userId) {
         await apiClient.delete(`/games/${userId}`);
         await dispatch('getGames');
+    },
+    async toggleUpVote({dispatch},gameId){
+        try{
+          await apiClient.post(`/games/${gameId}/upVote`)
+          await dispatch('getGame', gameId)
+        } catch (err) {
+          console.error('Error upVoting :', err)
+        }
     }
 };
 

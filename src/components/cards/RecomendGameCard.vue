@@ -1,18 +1,18 @@
 <template>
     <div
-        class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-            <div class="aspect-[14/9] w-full overflow-hidden rounded-t-lg p-4">
+            <div class="aspect-[19/9] w-full overflow-hidden rounded-t-lg p-4">
                 <img class="w-full h-full object-cover" :src="imageLink || defaultImage" alt="product image" />
             </div>
         </a>
-        <div class="px-5 pb-5">
+        <div class="px-5 pb-2">
             <a href="#">
                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     {{ gameName }}
                 </h5>
             </a>
-            <div class="flex items-center mt-2.5 mb-5">
+            <div class="flex items-center mt-2.5 mb-2">
                 <span
                     class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">
                     {{ upVotes }} upvotes
@@ -78,5 +78,6 @@ const defaultImage =
 
 
 const creator = computed(() => store.getters.getUserById(props.creatorID))
+
 console.log(creator)
 </script>

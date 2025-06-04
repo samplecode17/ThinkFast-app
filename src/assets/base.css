@@ -5,8 +5,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --color-thinkfast: #11c3f5; 
+    --color-thinkfast: #11c3f5;
+    
 }
+
 
 
 @plugin "flowbite/plugin";

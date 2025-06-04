@@ -7,6 +7,10 @@ import store from '@/store'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
 import ListMyGames from '@/views/Creator/ListMyGames.vue'
 import ListAllGames from '@/views/Games/ListAllGames.vue'
+
+
+import GameSection from '@/views/Games/GameSection.vue'
+import Following from '@/components/following/Following.vue'
 // the routes
 const routes = [
   {
@@ -43,10 +47,20 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/games/All',
+    path: '/games/list/All',
     name: 'All games list',
     component: ListAllGames,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/games/play/:game_id',
+    name: 'games',
+    component: GameSection,
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: Following,
   }
 ]
 
