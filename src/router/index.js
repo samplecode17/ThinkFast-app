@@ -10,7 +10,8 @@ import ListAllGames from '@/views/Games/ListAllGames.vue'
 
 
 import GameSection from '@/views/Games/GameSection.vue'
-import Following from '@/components/following/Following.vue'
+import GameChallengesList from '@/views/Creator/GameChallengesList.vue'
+
 // the routes
 const routes = [
   {
@@ -58,9 +59,9 @@ const routes = [
     component: GameSection,
   },
   {
-    path: '/test',
+    path: '/test/:game_id',
     name: 'test',
-    component: Following,
+    component: GameChallengesList,
   }
 ]
 
