@@ -252,7 +252,7 @@ const submitQuiz = async () => {
         quiz.is_answer_4_correct = quiz.correctAnswer === 4
 
         await store.dispatch('createQuiz', { ...quiz })
-        router.push(`creator/game/${gameId}`)
+        router.push(`/creator/game/${gameId}`)
     } catch (error) {
         console.error(error)
         if (error?.response?.status === 401) {

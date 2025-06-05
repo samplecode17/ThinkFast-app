@@ -20,7 +20,7 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <img class="size-8 rounded-full" :src="creator?.profile_image || 'https://via.placeholder.com/256'"
+                    <img class="size-8 rounded-full" :src="creator?.profile_image || 'https://i.ibb.co/Kc2Cs3rQ/blank-profile-picture-973460-640.webp'"
                         alt="User avatar" />
                     <span class="text-base font-semibold text-gray-900 dark:text-white">
                         {{ creator?.username || 'Anonymous' }}

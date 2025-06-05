@@ -7,7 +7,7 @@
         </div>
         <div class="w-full p-4"></div>
         <div class="w-full p-4 rounded flex flex-col shadow md:relative">
-            <button
+            <button @click="router.push(`/creator/games/edit/${gameId}`)"
                 class="absolute top-4 right-4 flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
@@ -173,11 +173,10 @@
                 <h2 class="text-2xl font-bold text-gray-600">Challenges</h2>
             </div>
             <button
-                class="absolute top-4 right-4 flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white z-10">
+                @click="router.push(`/creator/games/${gameId}/challenges/create`)" class="absolute top-4 right-4 flex p-2.5 bg-purple-500 rounded-xl hover:rounded-3xl hover:bg-purple-600 transition-all duration-300 text-white z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
             </button>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -222,9 +221,9 @@
                             {{ challenge.points }}
                         </td>
                         <td class="px-6 py-4 grid grid-cols-2 gap-2">
-                            <button><span
+                            <button @click="router.push(`/creator/games/${gameId}/challenges/edit/${challenge.id}`)" ><span
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</span></button>
-                            <button><span href="#"
+                            <button @click="handleDelete(challenge.id)"><span href="#"
                                     class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span></button>
                         </td>
                     </tr>
@@ -250,6 +249,7 @@ const router = useRouter()
 const gameId = route.params.game_id
 
 onBeforeMount(async () => {
+    await store.dispatch('activateNavBar')
     await store.dispatch('getGame', gameId)
     await store.dispatch('getChallengesByGame', gameId)
     await store.dispatch('getGameCommentsNum', gameId)
@@ -266,6 +266,9 @@ const totalPoints = computed(() => {
     return challenges.value?.reduce((acc, challenge) => acc + (challenge.points || 0), 0)
 })
 
+async function handleDelete(challenge_id){
+    await store.dispatch('deleteChallenge', challenge_id)
+}
 
 
 // Watch when game is loaded, then check permission

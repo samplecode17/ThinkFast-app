@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="mx-auto p-4 justify-center w-9/10">
   
     
     <div class="shadow p-1">
@@ -60,7 +60,7 @@
         :game-name="game.name"
         :creator-i-d="game.user_id"
         :up-votes="game.upVotes"
-        :button-href="`/edit/${game.id}`"
+        :button-href="`/games/play/${game.id}`"
         :image-link="game.image"
         button-name="Play"
         class="break-inside-avoid mb-4"
@@ -72,10 +72,11 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import GameCard from '@/components/cards/GameCard.vue';
 
 const store = useStore();
-
+const router = useRouter();
 const selectedCategory = ref(null);
 const searchTerm = ref(''); 
 

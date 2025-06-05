@@ -47,14 +47,14 @@
                         </div>
                         <div class="mb-4">
                             <label for="image" class="block font-semibold mb-1">Points</label>
-                            <NumberSelector :min="100" :max="1000" :initial="challenge_points"
+                            <NumberSelector v-if="challenge_info?.points" :min="100" :max="1000" :initial="challenge_info?.points"
                                 @second-value="handlePoints" />
                         </div>
                     </div>
                     <div class="w-full md:w-1/2">
                         <div class="mb-4">
                             <label for="image" class="block font-semibold mb-1">Seconds for the challenge</label>
-                            <NumberSelector :min="30" :max="120" :initial="challenge_time"
+                            <NumberSelector v-if="challenge_info?.complete_time" :min="30" :max="120" :initial="challenge_info?.complete_time"
                                 @second-value="handleCompleteTime" />
                         </div>
                     </div>
@@ -199,9 +199,7 @@ onBeforeMount(async () => {
 })
 
 const challenge_info = computed(() => store.getters.stateChallenge)
-
-const challenge_points = 0 + challenge_info.value?.points
-const challenge_time = 0 + challenge_info.value?.complete_time
+challenge_info.value?.points
 
 console.log(challenge_info.value?.quiz?.answer_4)
 

@@ -59,7 +59,7 @@ const routes = [
         component: CreateGame,
       },
       {
-        path: 'games/edit/game_id',
+        path: 'games/edit/:game_id',
         name: 'Edit game',
         component: EditGame,
       },
