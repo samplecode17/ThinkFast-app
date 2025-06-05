@@ -18,8 +18,8 @@
 
         <!-- Quiz in progress -->
         <Quiz v-else-if="quizState === 'playing' && current < questions.length" :key="current"
-          :image="questions[current].image" :question="questions[current].question" :points="questions[current].points"
-          :time="questions[current].time" :answers="questions[current].answers" @answered="handleAnswered" />
+          :image="questions[current]?.image" :question="questions[current]?.question" :points="questions[current]?.points"
+          :time="questions[current]?.time" :answers="questions[current]?.answers" @answered="handleAnswered" />
 
         <!-- Finished screen -->
         <div v-else-if="quizState === 'finished'"
@@ -37,15 +37,16 @@
       </div>
 
       <!-- Additional sections -->
-      <FollowingGame :creator-id="game.user_id" />
+      <FollowingGame v-if="game?.user_id" :creator-id="game?.user_id" />
       <Description />
-      <CommentThread :game-id="gameId" class="p-4" />
+      <CommentThread :game-id="Number(gameId)" class="p-4" />
     </div>
 
     <!-- Recommended now on the right -->
     <div class="md:w-2/6 w-full mt-6 md:mt-0">
       <h2 class="text-2xl font-bold mb-4 text-gray-500">Recommended</h2>
-      <Recommended :category_id="Number(game.category_id)" :game-id="Number(gameId)" />
+      <Recommended v-if="game?.category_id" :category_id="game?.category_id" :game-id="gameId" />
+
     </div>
   </div>
 </template>
@@ -68,7 +69,7 @@ const route = useRoute()
 const store = useStore()
 
 // Game ID from route
-const gameId = route.params.game_id || 2
+const gameId = route.params.game_id 
 
 // Track state of quiz: 'start', 'playing', 'finished'
 const quizState = ref('start')
@@ -91,9 +92,9 @@ const user_game = computed(() => store.getters.usergameExists)
 // Load game and challenges when component mounts
 onBeforeMount(async () => {
   try {
+    await store.dispatch('activateNavBar')
     await store.dispatch('getGame', gameId)
     await store.dispatch('usergameExists', { userId: actualUser.value, gameId })
-    await store.dispatch('activateNavBar')
     await store.dispatch('getChallengesByGame', gameId)
 
     const data = {

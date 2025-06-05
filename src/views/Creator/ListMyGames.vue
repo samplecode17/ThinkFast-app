@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto p-4 justify-center w-full md:w-9/10">
     <div class="flex justify-end p-4">
       <button @click="handleCreate"
         class=" text-white bg-thinkfast hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -7,7 +7,7 @@
       </button>
     </div>
 
-    <div class="flex items-center justify-center py-4 md:py-8 overflow-x-auto whitespace-nowrap">
+    <div class="flex items-ce py-4 md:py-8 overflow-x-auto whitespace-nowrap">
       <button @click="selectedCategory = null" :class="[
         'rounded-full px-5 py-2.5 text-base font-medium me-3 mb-3 inline-block',
         selectedCategory === null ? activeCategoryClass : inactiveCategoryClass,
@@ -23,9 +23,9 @@
     </div>
 
 
-    <div class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div class="mx-auto justify-center grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
       <GameCard v-for="game in filteredGames" :key="game.id" :game-name="game.name" :creator-i-d="game.user_id"
-        :up-votes="game.upVotes" :button-href="`/edit/${game.id}`" :image-link="game.image" button-name="Edit"
+        :up-votes="game.upVotes" :button-href="`/creator/game/${game.id}`" :image-link="game.image" button-name="Edit"
         class="break-inside-avoid mb-4" />
     </div>
   </div>

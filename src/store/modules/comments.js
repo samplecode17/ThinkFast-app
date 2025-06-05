@@ -3,12 +3,14 @@ import apiClient from "@/services/appClient";
 const state = {
     comments: [],
     loading: false,
-    error: null
+    error: null,
+    commentsCount: 0,
   }
   
 const getters = {
     getComments: (state) => state.comments,
-    isLoading: (state) => state.loading
+    isLoading: (state) => state.loading,
+    getCommentsNum: (state) => state.commentsCount
 }
   
 const actions = {
@@ -36,6 +38,14 @@ const actions = {
         }
     },
 
+    async getGameCommentsNum({commit}, gameId){
+        try{
+            const res = await apiClient.get(`/games/${gameId}/comments/count`)
+            commit('setCommentsCount', res.data)
+        } catch (err) {
+            commit('setError', err)}
+    },
+
     async toggleLike({ dispatch }, { commentId, gameId }) {
         try {
             await apiClient.post(`/comments/${commentId}/like`)
@@ -55,6 +65,9 @@ const actions = {
     },
     setError(state, error) {
       state.error = error
+    },
+    setCommentsCount(state, count) {
+        state.commentsCount = count.comment_num
     }
   }
   

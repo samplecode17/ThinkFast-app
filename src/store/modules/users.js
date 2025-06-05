@@ -8,6 +8,7 @@ const state = {
   user: null,
   usersById: {},
   userId: null,
+  userRole: null,
 };
 
 const getters = {
@@ -15,6 +16,7 @@ const getters = {
   stateUser: (state) => state.user,
   getUserId: (state) => state.userId,
   getUserById: (state) => (id) => state.usersById[id] || null,
+  getUserRole: (state) => (state.userRole) 
 };
 
 const actions = {
@@ -100,6 +102,7 @@ const mutations = {
   setUser(state, user) {
     state.user = user;
     state.userId = user.id;
+    state.userRole = user.role;
   },
   setUserById(state, user) {
     state.usersById[user.id] = user;
@@ -107,6 +110,7 @@ const mutations = {
   logout(state) {
     state.user = null;
     state.userId = null;
+    state.userRole = null;
     state.usersById = {};
   },
 };

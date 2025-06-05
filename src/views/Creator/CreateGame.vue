@@ -79,7 +79,6 @@ onBeforeMount(async () => {
 })
 
 const imageUrl = computed(() => store.getters['imagepost/uploadedImageUrl'])
-const authenticated = store.getters.isAuthenticated
 
 const form = reactive({
   name: '',
@@ -112,10 +111,9 @@ const submitGame = async () => {
   try {
     form.user_id = store.getters.getUserId
     await store.dispatch('createGame', { ...form })
-    alert("Game created successfully.")
+    router.push('/creator/games')
   } catch (error) {
     console.error(error)
-    alert("An error occurred while creating the game.")
   }
 }
 </script>

@@ -45,7 +45,7 @@
 </template>
   
 <script setup>
-import { computed, ref, onBeforeMount, defineEmits } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
