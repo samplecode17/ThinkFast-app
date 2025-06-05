@@ -36,13 +36,13 @@ const actions = {
         commit('setGame', data);
     },
 
-    async updateGame({ dispatch }, {userId, form}) {
-        await apiClient.put(`/games/${userId}`, form);
+    async updateGame({ dispatch }, {gameId, form}) {
+        await apiClient.put(`/games/${gameId}`, form);
         await dispatch('getGames');
     },
 
-    async deleteGame({ dispatch }, userId) {
-        await apiClient.delete(`/games/${userId}`);
+    async deleteGame({ dispatch }, gameId) {
+        await apiClient.delete(`/games/${gameId}`);
         await dispatch('getGames');
     },
     async toggleUpVote({dispatch},gameId){

@@ -263,7 +263,7 @@ const userRole = computed(() => store.getters.getUserRole)
 const commentsCount = computed(() => store.getters.getCommentsNum)
 
 const totalPoints = computed(() => {
-    return challenges.value.reduce((acc, challenge) => acc + (challenge.points || 0), 0)
+    return challenges.value?.reduce((acc, challenge) => acc + (challenge.points || 0), 0)
 })
 
 

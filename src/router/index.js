@@ -11,6 +11,8 @@ import ListAllGames from '@/views/Games/ListAllGames.vue'
 
 import GameSection from '@/views/Games/GameSection.vue'
 import GameChallengesList from '@/views/Creator/GameChallengesList.vue'
+import EditChallengeQuiz from '@/views/Creator/EditChallengeQuiz.vue'
+import EditGame from '@/views/Creator/EditGame.vue'
 
 // the routes
 const routes = [
@@ -29,24 +31,8 @@ const routes = [
     name: 'Login',
     component: Login,
   },
-  //Creator section
-  {
-    path: '/creator/games/create',
-    name: 'Creating games',
-    component: CreateGame,
-    meta: { requiresAuth: true }, // Route requires authentication
-  },
-  {
-    path: '/creator/games/:game_id/challenges/create',
-    name: 'Creating challenge quiz',
-    component: CreateChallengeQuiz,
-  },
-  {
-    path: '/creator/games',
-    name: 'List of all my games',
-    component: ListMyGames,
-    meta: { requiresAuth: true },
-  },
+
+  // Games (public and gameplay)
   {
     path: '/games/list/All',
     name: 'All games list',
@@ -55,14 +41,45 @@ const routes = [
   },
   {
     path: '/games/play/:game_id',
-    name: 'games',
+    name: 'Play the game',
     component: GameSection,
   },
   {
-    path: '/test/:game_id',
-    name: 'test',
-    component: GameChallengesList,
-  }
+    path: '/creator',
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'games',
+        name: 'List of all my games',
+        component: ListMyGames,
+      },
+      {
+        path: 'games/create',
+        name: 'Creating games',
+        component: CreateGame,
+      },
+      {
+        path: 'games/edit/game_id',
+        name: 'Edit game',
+        component: EditGame,
+      },
+      {
+        path: 'game/:game_id',
+        name: 'Game info and challenges',
+        component: GameChallengesList,
+      },
+      {
+        path: 'games/:game_id/challenges/create',
+        name: 'Creating challenge quiz',
+        component: CreateChallengeQuiz,
+      },
+      {
+        path: 'games/:game_id/challenges/edit/:challenge_id',
+        name: 'Edit challenge',
+        component: EditChallengeQuiz,
+      },
+    ],
+  },
 ]
 
 const router = createRouter({
