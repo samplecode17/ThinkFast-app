@@ -13,6 +13,7 @@ import GameSection from '@/views/Games/GameSection.vue'
 import GameChallengesList from '@/views/Creator/GameChallengesList.vue'
 import EditChallengeQuiz from '@/views/Creator/EditChallengeQuiz.vue'
 import EditGame from '@/views/Creator/EditGame.vue'
+import UserSettings from '@/views/User/UserSettings.vue'
 
 // the routes
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: '/games/play/:game_id',
     name: 'Play the game',
     component: GameSection,
+  },
+  {
+    path: '/user/settings',
+    name: 'Settings',
+    component: UserSettings,
   },
   {
     path: '/creator',
