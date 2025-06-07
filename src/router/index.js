@@ -14,6 +14,9 @@ import GameChallengesList from '@/views/Creator/GameChallengesList.vue'
 import EditChallengeQuiz from '@/views/Creator/EditChallengeQuiz.vue'
 import EditGame from '@/views/Creator/EditGame.vue'
 import UserSettings from '@/views/User/UserSettings.vue'
+import UsersList from '@/views/Admin/UsersList.vue'
+import CreateUser from '@/views/Admin/CreateUser.vue'
+import EditUser from '@/views/Admin/EditUser.vue'
 
 // the routes
 const routes = [
@@ -31,6 +34,24 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/admin',
+    name: 'Users administration',
+    component: UsersList,
+    // meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/users/create',
+    name: 'Users administration create',
+    component: CreateUser,
+    // meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/users/edit/:user_id',
+    name: 'Users administration edit',
+    component: EditUser,
+    // meta: { requiresAuth: true, requiresAdmin: true },
   },
 
   // Games (public and gameplay)
@@ -108,10 +129,15 @@ router.beforeEach(async (to, _from, next) => {
 
   // Update authentication status after possible user fetch
   const updatedAuth = store.getters.isAuthenticated
+  const isAdmin = store.getters.getIsAdmin
 
   // If route requires auth and user is not authenticated, redirect to login
   if (to.matched.some(record => record.meta.requiresAuth) && !updatedAuth) {
     return next('/login')
+  }
+
+  if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin) {
+    return next('/')
   }
 
   // Prevent authenticated users from visiting login or register pages

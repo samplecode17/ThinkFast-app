@@ -27,8 +27,9 @@
             </div>
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
-                <a v-if="autheticated" href="/games/list/All" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Games</a>
+                <a v-if="autheticated"href="/games/list/All" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Games</a>
                 <a v-if="autheticated" href="/creator/games" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Creator</a>
+                <a v-if="autheticated && isAdmin" href="/admin" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Admin</a>
               </div>
             </div>
           </div>
@@ -117,6 +118,7 @@ const router = useRouter();
 const show = computed(() => store.getters.stateNavBar);
 // Is autheticated ?
 const autheticated = computed(() => store.getters.isAuthenticated)
+const isAdmin = computed(()=>store.getters.getIsAdmin)
 
 const user = computed(() => store.getters.stateUser)
 

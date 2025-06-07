@@ -10,6 +10,9 @@ const state = {
   userId: null,
   userRole: null,
   isValidPassword: null,
+  users:null,
+  isAdmin:null,
+  userEdit:null,
 };
 
 const getters = {
@@ -18,7 +21,10 @@ const getters = {
   getUserId: (state) => state.userId,
   getUserById: (state) => (id) => state.usersById[id] || null,
   getUserRole: (state) => (state.userRole),
-  getValid: (state) => (state.isValidPassword)
+  getValid: (state) => (state.isValidPassword),
+  getIsAdmin: (state) => (state.userRole =='admin'),
+  getAllUsers: (state) => (state.users),
+  getUserEdit: (state) => (state.userEdit),
 };
 
 const actions = {
@@ -69,6 +75,14 @@ const actions = {
     }
   },
 
+  async getAllUsers({commit}){
+    try{
+      const {data} = await apiClient.get(`/users/admin`)
+      commit('setUsers',data)
+    }catch (error) {
+      throw error;
+    }
+  },
 
   async editUser({ dispatch }, { userId, form }) {
     try {
@@ -82,6 +96,10 @@ const actions = {
   async deleteUser(_, id) {
     await apiClient.delete(`/users/${id}`);
   },
+  async deleteUserAdmin({ dispatch }, id) {
+    await apiClient.delete(`/users/${id}`);
+    dispatch('getAllUsers')
+  },
 
   async validatePassword(_, password){
     const { data } = await apiClient.post(`/auth/validate_password`, {password: password})
@@ -92,6 +110,30 @@ const actions = {
     commit("logout");
     localStorage.removeItem("token");
     delete apiClient.defaults.headers.common["Authorization"];
+  },
+  async createUserAdmin({ dispatch }, form) {
+
+    await apiClient.post("/users", form);
+    await dispatch('getAllUsers');
+  },
+
+  async editUserAdmin({ dispatch }, { userId, form }) {
+    try {
+      await apiClient.put(`/users/${userId}`, form);
+      await dispatch("getUserAdmin", userId)
+      await dispatch('getAllUsers')
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  async getUserAdmin({ commit }, id) {
+    try {
+      const { data } = await apiClient.get(`/users/admin/${id}`);
+      commit("setUserEdit", data);
+    } catch (error) {
+      throw error;
+    }
   },
 
   async toggleFollow({dispatch},userId){
@@ -110,8 +152,14 @@ const mutations = {
     state.userId = user.id;
     state.userRole = user.role;
   },
+  setUsers(state,users){
+    state.users = users;
+  },
   setUserById(state, user) {
     state.usersById[user.id] = user;
+  },
+  setUserEdit(state,user){
+    state.userEdit = user
   },
   logout(state) {
     state.user = null;
