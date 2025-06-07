@@ -9,6 +9,7 @@ const state = {
   usersById: {},
   userId: null,
   userRole: null,
+  isValidPassword: null,
 };
 
 const getters = {
@@ -16,7 +17,8 @@ const getters = {
   stateUser: (state) => state.user,
   getUserId: (state) => state.userId,
   getUserById: (state) => (id) => state.usersById[id] || null,
-  getUserRole: (state) => (state.userRole) 
+  getUserRole: (state) => (state.userRole),
+  getValid: (state) => (state.isValidPassword)
 };
 
 const actions = {
@@ -68,11 +70,10 @@ const actions = {
   },
 
 
-  async editUser({ commit }, { userId, form }) {
+  async editUser({ dispatch }, { userId, form }) {
     try {
       const { data } = await apiClient.put(`/users/${userId}`, form);
-      commit("setUser", data);
-      commit("setUserById", data);
+      await dispatch("Me")
     } catch (error) {
       throw error;
     }
@@ -80,6 +81,11 @@ const actions = {
 
   async deleteUser(_, id) {
     await apiClient.delete(`/users/${id}`);
+  },
+
+  async validatePassword(_, password){
+    const { data } = await apiClient.post(`/auth/validate_password`, {password: password})
+    return data
   },
 
   async logOut({ commit }) {
