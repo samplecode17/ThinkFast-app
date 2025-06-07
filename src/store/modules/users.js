@@ -116,7 +116,8 @@ const actions = {
   async editUserAdmin({ dispatch }, { userId, form }) {
     try {
       await apiClient.put(`/users/${userId}`, form);
-      await dispatch("getAllUsers")
+      await dispatch("getUserAdmin", userId)
+      await dispatch('getAllUsers')
     } catch (error) {
       throw error;
     }

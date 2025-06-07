@@ -16,6 +16,7 @@ import EditGame from '@/views/Creator/EditGame.vue'
 import UserSettings from '@/views/User/UserSettings.vue'
 import UsersList from '@/views/Admin/UsersList.vue'
 import CreateUser from '@/views/Admin/CreateUser.vue'
+import EditUser from '@/views/Admin/EditUser.vue'
 
 // the routes
 const routes = [
@@ -46,7 +47,12 @@ const routes = [
     component: CreateUser,
     // meta: { requiresAuth: true, requiresAdmin: true },
   },
-
+  {
+    path: '/admin/users/edit/:user_id',
+    name: 'Users administration edit',
+    component: EditUser,
+    // meta: { requiresAuth: true, requiresAdmin: true },
+  },
 
   // Games (public and gameplay)
   {
