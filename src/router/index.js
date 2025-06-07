@@ -17,6 +17,7 @@ import UserSettings from '@/views/User/UserSettings.vue'
 import UsersList from '@/views/Admin/UsersList.vue'
 import CreateUser from '@/views/Admin/CreateUser.vue'
 import EditUser from '@/views/Admin/EditUser.vue'
+import UserPage from '@/views/User/UserPage.vue'
 
 // the routes
 const routes = [
@@ -70,6 +71,11 @@ const routes = [
     path: '/user/settings',
     name: 'Settings',
     component: UserSettings,
+  },
+  {
+    path: '/user/profile/:user_id',
+    name: 'User profile',
+    component: UserPage,
   },
   {
     path: '/creator',
