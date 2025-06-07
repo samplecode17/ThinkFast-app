@@ -22,7 +22,7 @@ const getters = {
   getUserById: (state) => (id) => state.usersById[id] || null,
   getUserRole: (state) => (state.userRole),
   getValid: (state) => (state.isValidPassword),
-  getIsAdmin: (state) => (state.userRole=='admin'),
+  getIsAdmin: (state) => (state.userRole =='admin'),
   getAllUsers: (state) => (state.users),
   getUserEdit: (state) => (state.userEdit),
 };
@@ -95,6 +95,10 @@ const actions = {
 
   async deleteUser(_, id) {
     await apiClient.delete(`/users/${id}`);
+  },
+  async deleteUserAdmin({ dispatch }, id) {
+    await apiClient.delete(`/users/${id}`);
+    dispatch('getAllUsers')
   },
 
   async validatePassword(_, password){

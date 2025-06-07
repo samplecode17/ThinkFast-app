@@ -50,8 +50,11 @@
                     </td>
                     <td class="px-6 py-4">
                         <!-- Modal toggle -->
-                        <a href="#" type="button" data-modal-show="editUserModal"
+                        <button @click="submitAccountDelete(user?.id)">
+                            <a href="#" type="button" data-modal-show="removeUserModal"
                             class="font-medium text-red-600 dark:text-blue-500 hover:underline">Remove user</a>
+                        </button>
+                        
                     </td>
                 </tr>
             </tbody>
@@ -61,15 +64,26 @@
 </template>
 <script setup>
 import { computed, onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-
+const router =useRouter()
 const store = useStore()
 
 onBeforeMount(async () => {
+    await store.dispatch('activateNavBar')
     await store.dispatch('getAllUsers')
 })
 
 const users = computed(() => store.getters.getAllUsers)
+
+async function submitAccountDelete(userId) {
+    await store.dispatch('deleteUserAdmin', userId)
+}
+
+async function handleCreate() {
+    router.push('/admin/users/create')
+}
+
 
 </script>

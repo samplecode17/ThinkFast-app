@@ -79,7 +79,6 @@ const form = reactive({
     date: ''
 })
 
-
 const datepickerInput = ref(null) // reference to the input element
 
 const submit = async () => {
@@ -112,7 +111,7 @@ const submit = async () => {
     }
     console.log(isoDate)
     try {
-        await store.dispatch('createUser', User)
+        await store.dispatch('createUserAdmin', User)
         router.push('/admin')
     } catch (error) {
         console.error('Creation failed:', error)

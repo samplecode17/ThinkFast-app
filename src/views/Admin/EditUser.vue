@@ -77,7 +77,7 @@
                 <form @submit.prevent="submitPasswordChange" class="pb-4">
                     <p class="py-2 text-xl font-semibold">Password</p>
                     <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
-                        
+
                         <label for="new-password">
                             <span class="text-sm text-gray-500">New Password</span>
                             <input type="password" id="new-password" name="new-password" v-model="newPassword"
@@ -98,7 +98,7 @@
             <div v-if="selectedTab === 'profile'"
                 class="col-span-8 overflow-hidden rounded-xl sm:bg-gray-50 sm:px-8 sm:shadow">
                 <div class="pt-4 mx-auto">
-                    <h1 class="py-2 text-2xl font-semibold">Profile settings</h1>
+                    <h1 class="py-2 text-2xl font-semibold">Other settings</h1>
                 </div>
                 <hr class="mt-4 mb-8 border-gray-300" />
                 <div class="py-4 mx-auto md:mx-10">
@@ -158,7 +158,14 @@
                                     placeholder="Your second name" />
                             </label>
                         </div>
-                        <div class="flex-1 w1/2 px-5 md:px-10"></div>
+                        <div class="flex-1 w1/2 px-5 md:px-10">
+                            <label for="second-name" class="block">
+                                <span class="text-sm text-gray-600">Role</span>
+                                <input type="text" id="role" name="role" v-model="profileInfo.role"
+                                    class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                                    placeholder="role" />
+                            </label>
+                        </div>
                     </div>
 
                 </div>
@@ -191,7 +198,7 @@ const route = useRoute()
 
 const userId = route.params.user_id
 
-onBeforeMount(async ()=>{
+onBeforeMount(async () => {
     await store.dispatch('activateNavBar')
     await store.dispatch('getUserAdmin', userId)
 })
@@ -258,6 +265,7 @@ const profileInfo = reactive({
     username: user.value?.username,
     first_name: user.value?.first_name,
     second_name: user.value?.second_name,
+    role: user.value?.role,
 })
 
 async function submitProfile() {
@@ -269,7 +277,7 @@ async function submitProfile() {
         const edited_profile = { ...profileInfo }
         await store.dispatch('editUserAdmin', { userId: user.value?.id, form: edited_profile })
 
-        
+
         profileSuccessMsg.value = 'Profile saved successfully!'
 
         setTimeout(() => {
