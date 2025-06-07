@@ -37,7 +37,7 @@ import { useStore } from 'vuex'
 
 
 const props = defineProps({
-    creatorId: String,
+    creatorId: Number,
 })
 
 

@@ -210,11 +210,15 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, onBeforeMount } from 'vue'
 
 
 const store = useStore()
 const user = computed(() => store.getters.stateUser)
+
+onBeforeMount(async () => {
+    await store.dispatch('activateNavBar')
+})
 
 const selectedTab = ref('accounts')
 const isEditingEmail = ref(false)

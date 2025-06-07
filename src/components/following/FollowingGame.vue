@@ -7,10 +7,15 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-4 gap-3">
         <div class="flex items-center gap-5">
-            <img class="w-10 h-10 rounded-full" :src="creator?.profile_image || 'https://i.ibb.co/Kc2Cs3rQ/blank-profile-picture-973460-640.webp'"
+            <img class="w-10 h-10 rounded-full"
+                :src="creator?.profile_image || 'https://i.ibb.co/Kc2Cs3rQ/blank-profile-picture-973460-640.webp'"
                 alt="User avatar" />
             <div class="flex flex-col pl-1">
-                <span class="font-bold leading-tight">{{ creator?.username }}</span>
+                <a :href="`/user/profile/${creatorId}`"
+                    class="font-bold leading-tight">
+                    {{ creator?.username }}
+                </a>
+
                 <span class="text-sm text-gray-500 leading-tight">
                     {{ formattedFollowers }} followers
                 </span>
@@ -66,7 +71,7 @@ onBeforeMount(async () => {
 
 const creator = computed(() => store.getters.getUserById(props?.creatorId))
 const game = computed(() => store.getters.stateGame)
-const actualUser = computed(() => store.getters.getUserId )
+const actualUser = computed(() => store.getters.getUserId)
 
 const formattedFollowers = computed(() => {
     const count = creator.value?.followers_count || 0
