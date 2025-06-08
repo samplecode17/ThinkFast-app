@@ -25,6 +25,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: { onlyNotAuth: true},
   },
   {
     path: '/register',
@@ -40,19 +41,19 @@ const routes = [
     path: '/admin',
     name: 'Users administration',
     component: UsersList,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/admin/users/create',
     name: 'Users administration create',
     component: CreateUser,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/admin/users/edit/:user_id',
     name: 'Users administration edit',
     component: EditUser,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
 
   // Games (public and gameplay)
@@ -66,16 +67,19 @@ const routes = [
     path: '/games/play/:game_id',
     name: 'Play the game',
     component: GameSection,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user/settings',
     name: 'Settings',
     component: UserSettings,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user/profile/:user_id',
     name: 'User profile',
     component: UserPage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/creator',
@@ -140,6 +144,10 @@ router.beforeEach(async (to, _from, next) => {
   // If route requires auth and user is not authenticated, redirect to login
   if (to.matched.some(record => record.meta.requiresAuth) && !updatedAuth) {
     return next('/login')
+  }
+
+  if (to.matched.some(record => record.meta.onlyNotAuth) && updatedAuth) {
+    return next('/games/list/All')
   }
 
   if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin) {
