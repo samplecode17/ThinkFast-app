@@ -62,7 +62,6 @@ const filteredGames = computed(() => {
 })
 
 const handleCreate = async () => {
-  await store.dispatch('logOut');
   router.push('/creator/games/create')
 };
 const activeCategoryClass = 'text-white bg-thinkfast border border-gray-200 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-gray-400 dark:border-gray-200 dark:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-gray-600';

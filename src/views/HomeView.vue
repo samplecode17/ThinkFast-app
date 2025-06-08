@@ -9,7 +9,7 @@
         <p class="text-gray-200 mb-6">
           Compete, learn, and think faster with high-speed trivia challenges.
         </p>
-        <a href="#"
+        <a href="/register"
           class="px-6 py-3 bg-white text-thinkfast font-medium text-lg rounded-lg hover:bg-gray-600 hover:text-white transition">
           Get Started
         </a>

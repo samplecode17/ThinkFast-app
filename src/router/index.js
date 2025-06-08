@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
-import CreateGame from '@/views/Creator/CreateGame.vue'
 import store from '@/store'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
 import ListMyGames from '@/views/Creator/ListMyGames.vue'
@@ -18,6 +17,7 @@ import UsersList from '@/views/Admin/UsersList.vue'
 import CreateUser from '@/views/Admin/CreateUser.vue'
 import EditUser from '@/views/Admin/EditUser.vue'
 import UserPage from '@/views/User/UserPage.vue'
+import CreateGame from '@/views/Creator/CreateGame.vue'
 
 // the routes
 const routes = [
@@ -83,7 +83,7 @@ const routes = [
   },
   {
     path: '/creator',
-    meta: { requiresAuth: true },
+    meta: { requiresAuth:true },
     children: [
       {
         path: 'games',
