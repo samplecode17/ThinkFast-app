@@ -7,14 +7,27 @@
         </div>
         <div class="w-full p-4"></div>
         <div class="w-full p-4 rounded flex flex-col shadow md:relative">
-            <button @click="router.push(`/creator/games/edit/${gameId}`)"
-                class="absolute top-4 right-4 flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white z-10">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-            </button>
+            <div class="flex justify-end gap-2 p-4 z-10">
+                <button @click="router.push(`/creator/games/edit/${gameId}`)"
+                    class="flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                </button>
+
+                <button @click="handleDeleteGame(gameId)"
+                    class="flex p-2.5 bg-red-500 rounded-xl hover:rounded-3xl hover:bg-red-600 transition-all duration-300 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0a2 2 0 00-2-2H9a2 2 0 00-2 2m12 0H5" />
+                    </svg>
+                </button>
+
+            </div>
+
             <div class="w-full flex-1/3">
                 <div class="w-full flex flex-col md:flex-row p-4">
                     <img v-if="game?.image && game.image !== ''" class="md:w-2/4 w-full aspect-[14/9]"
@@ -172,8 +185,8 @@
             <div class="w-full mb-2">
                 <h2 class="text-2xl font-bold text-gray-600">Challenges</h2>
             </div>
-            <button
-                @click="router.push(`/creator/games/${gameId}/challenges/create`)" class="absolute top-4 right-4 flex p-2.5 bg-purple-500 rounded-xl hover:rounded-3xl hover:bg-purple-600 transition-all duration-300 text-white z-10">
+            <button @click="router.push(`/creator/games/${gameId}/challenges/create`)"
+                class="absolute top-4 right-4 flex p-2.5 bg-purple-500 rounded-xl hover:rounded-3xl hover:bg-purple-600 transition-all duration-300 text-white z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -221,7 +234,8 @@
                             {{ challenge.points }}
                         </td>
                         <td class="px-6 py-4 grid grid-cols-2 gap-2">
-                            <button @click="router.push(`/creator/games/${gameId}/challenges/edit/${challenge.id}`)" ><span
+                            <button
+                                @click="router.push(`/creator/games/${gameId}/challenges/edit/${challenge.id}`)"><span
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</span></button>
                             <button @click="handleDelete(challenge.id)"><span href="#"
                                     class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</span></button>
@@ -266,10 +280,14 @@ const totalPoints = computed(() => {
     return challenges.value?.reduce((acc, challenge) => acc + (challenge.points || 0), 0)
 })
 
-async function handleDelete(challenge_id){
+async function handleDelete(challenge_id) {
     await store.dispatch('deleteChallenge', challenge_id)
 }
 
+async function handleDeleteGame(game_id) {
+    await store.dispatch('deleteGame', game_id)
+    router.push('/creator/games')
+}
 
 // Watch when game is loaded, then check permission
 watch(game, (val) => {

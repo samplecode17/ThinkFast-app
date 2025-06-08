@@ -52,9 +52,6 @@
           <div>
             <div class="flex items-center justify-between">
               <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-              <div class="text-sm">
-                <a href="#" class="font-semibold text-thinkfast hover:text-gray-500">Forgot password?</a>
-              </div>
             </div>
             <div class="mt-2">
               <input
@@ -85,7 +82,7 @@
 
         <p class="mt-10 text-center text-sm/6 text-gray-500">
           Not a member?
-          <a href="#" class="font-semibold text-thinkfast hover:text-gray-500">Register</a>
+          <a href="/register" class="font-semibold text-thinkfast hover:text-gray-500">Register</a>
         </p>
       </div>
     </div>

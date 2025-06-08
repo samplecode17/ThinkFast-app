@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/authentification/Login.vue'
 import Register from '@/views/authentification/Register.vue'
-import CreateGame from '@/views/Creator/CreateGame.vue'
 import store from '@/store'
 import CreateChallengeQuiz from '@/views/Creator/CreateChallengeQuiz.vue'
 import ListMyGames from '@/views/Creator/ListMyGames.vue'
@@ -18,6 +17,7 @@ import UsersList from '@/views/Admin/UsersList.vue'
 import CreateUser from '@/views/Admin/CreateUser.vue'
 import EditUser from '@/views/Admin/EditUser.vue'
 import UserPage from '@/views/User/UserPage.vue'
+import CreateGame from '@/views/Creator/CreateGame.vue'
 
 // the routes
 const routes = [
@@ -25,6 +25,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: { onlyNotAuth: true},
   },
   {
     path: '/register',
@@ -40,19 +41,19 @@ const routes = [
     path: '/admin',
     name: 'Users administration',
     component: UsersList,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/admin/users/create',
     name: 'Users administration create',
     component: CreateUser,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/admin/users/edit/:user_id',
     name: 'Users administration edit',
     component: EditUser,
-    // meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
 
   // Games (public and gameplay)
@@ -66,20 +67,23 @@ const routes = [
     path: '/games/play/:game_id',
     name: 'Play the game',
     component: GameSection,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user/settings',
     name: 'Settings',
     component: UserSettings,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user/profile/:user_id',
     name: 'User profile',
     component: UserPage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/creator',
-    meta: { requiresAuth: true },
+    meta: { requiresAuth:true },
     children: [
       {
         path: 'games',
@@ -140,6 +144,10 @@ router.beforeEach(async (to, _from, next) => {
   // If route requires auth and user is not authenticated, redirect to login
   if (to.matched.some(record => record.meta.requiresAuth) && !updatedAuth) {
     return next('/login')
+  }
+
+  if (to.matched.some(record => record.meta.onlyNotAuth) && updatedAuth) {
+    return next('/games/list/All')
   }
 
   if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin) {

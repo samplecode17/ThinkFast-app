@@ -106,7 +106,7 @@
 
                         <div
                             class="pl-10 justify-start items-start mx-auto w-full flex flex-col sm:items-start gap-4 sm:flex-row">
-                            <img :src="uploadedImageLink || profileInfo.profile_image || defaultImage"
+                            <img :src="uploadedImageLink || profileInfo?.profile_image || defaultImage"
                                 class="w-40 h-40 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-500"
                                 alt="Profile avatar" />
 
@@ -193,7 +193,6 @@ import { useRoute, useRouter } from 'vue-router'
 
 
 const store = useStore()
-const router = useRouter()
 const route = useRoute()
 
 const userId = route.params.user_id
