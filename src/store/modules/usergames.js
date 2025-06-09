@@ -19,7 +19,7 @@ const actions = {
     },
     async usergameExists({ dispatch, commit }, { userId, gameId }) {
         const { data } = await apiClient.get(`usergames/exists/user:${userId}/game:${gameId}`);
-        if (data?.exists === true) {
+        if (data?.exists == true) {
             commit('setUserGameExists', true);
             await dispatch('getUserGame', { userId, gameId });
         } else {
