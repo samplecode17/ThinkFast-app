@@ -108,7 +108,7 @@
   </header>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -142,4 +142,10 @@ const showMobileMenu = ref(false);
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value;
 };
+
+watch(autheticated, (isAuth) => {
+  if (isAuth) {
+    showDropdown.value = false;
+  }
+})
 </script>
