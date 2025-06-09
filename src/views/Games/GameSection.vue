@@ -87,7 +87,7 @@ const userGame = computed(() => store.getters.stateUserGame)
 
 // User data
 const actualUser = computed(() => store.getters.getUserId)
-const user_game = computed(() => store.getters.usergameExists)
+const userGameExists = computed(() => store.getters.existsUsergame)
 
 // Load game and challenges when component mounts
 onBeforeMount(async () => {
@@ -102,7 +102,7 @@ onBeforeMount(async () => {
       game_id: gameId
     }
 
-    if (user_game.value === false) {
+    if (userGameExists.value == false) {
       await store.dispatch('createUserGame', data)
     }
   } catch (e) {
