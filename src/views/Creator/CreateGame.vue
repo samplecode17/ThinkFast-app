@@ -66,6 +66,7 @@
 <script setup>
 import { reactive, computed, watch, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import ImageUploader from '@/components/ImageUploader.vue'
 import CategoryCreatorButton from '@/components/category/CategoryCreatorButton.vue'
 import CategorySelector from '@/components/category/CategorySelector.vue'
@@ -73,6 +74,7 @@ import DifficultyCreatorButton from '@/components/difficulty/DifficultyCreatorBu
 import DifficultySelector from '@/components/difficulty/DifficultySelector.vue'
 
 const store = useStore()
+const router = useRouter()
 
 onBeforeMount(async () => {
   await store.dispatch('activateNavBar')
