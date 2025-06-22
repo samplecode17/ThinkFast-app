@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <button type="button" @click="toggleFollow"
+        <button v-if="props.creatorId != actualId" type="button" @click="toggleFollow"
             class="px-5 py-2.5 text-base font-medium inline-flex items-center rounded-lg transition-all duration-300 w-full sm:w-auto justify-center sm:ml-auto"
             :class="[
                 creator?.followed_by_me
@@ -48,7 +48,7 @@ onBeforeMount(
 
 const store = useStore()
 const creator = computed(() => store.getters.getUserById(props.creatorId))
-
+const actualId = computed(() => store.getters.getUserId)
 
 const formattedFollowers = computed(() => {
     const count = creator.value?.followers_count || 0;

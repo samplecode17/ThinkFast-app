@@ -30,10 +30,7 @@
 
             <div class="w-full flex-1/3">
                 <div class="w-full flex flex-col md:flex-row p-4">
-                    <img v-if="game?.image && game.image !== ''" class="md:w-2/4 w-full aspect-[14/9]"
-                        :src="game.image" />
-                    <img v-else class="md:w-2/5 w-full aspect-[14/9]"
-                        src="https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png" />
+                    <img class="md:w-2/5 w-full aspect-[14/9]" :src="game?.image || 'https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png'" />
                     <div class="md:w-3/5 w-full flex-col p-4 ">
                         <h2 class="text-2xl font-bold text-gray-600 mb-2">Description</h2>
                         <div class="p-2">
