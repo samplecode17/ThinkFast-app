@@ -37,17 +37,14 @@ const actions = {
     try {
       const { data } = await apiClient.post("/auth/token", credentials);
       const token = data.token || data.access_token;
-
+  
       localStorage.setItem("token", token);
-      apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
       await dispatch("Me");
     } catch (error) {
       localStorage.removeItem("token");
-      delete apiClient.defaults.headers.common["Authorization"];
       throw error;
     }
-  },
+  }, 
 
   async Me({ commit }) {
     try {
