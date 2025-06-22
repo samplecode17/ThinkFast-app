@@ -82,7 +82,7 @@
             </button>
 
             <p class="text-sm font-light text-gray-500">
-              Already have an account? <a href="#" class="font-medium text-thinkfast hover:underline">Login here</a>
+              Already have an account? <a :href="'/login'" class="font-medium text-thinkfast hover:underline">Login here</a>
             </p>
           </form>
         </div>
