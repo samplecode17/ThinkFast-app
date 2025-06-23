@@ -26,7 +26,7 @@
                                 <div class="flex-1">
                                     <DifficultySelector @select="handleDifficultySelect" />
                                 </div>
-                                <div class="shrink-0 pt-2 ">
+                                <div v-if="isAdmin" class="shrink-0 pt-2 ">
                                     <DifficultyCreatorButton />
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ onBeforeMount(async () => {
     await store.dispatch('getGame', gameId)
 })
 
-
+const isAdmin = computed(()=>store.getters.getIsAdmin)
 const game = computed(()=>store.getters.stateGame)
 const userId = computed(() => store.getters.getUserId)
 const userRole = computed(() => store.getters.getUserRole)
