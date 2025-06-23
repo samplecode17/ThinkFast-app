@@ -24,7 +24,7 @@
                 <div class="flex-1">
                   <DifficultySelector @select="handleDifficultySelect"/>
                 </div>
-                <div class="shrink-0 pt-2 ">
+                <div v-if="isAdmin" class="shrink-0 pt-2 ">
                   <DifficultyCreatorButton />
                 </div>
               </div>
@@ -79,6 +79,8 @@ const router = useRouter()
 onBeforeMount(async () => {
   await store.dispatch('activateNavBar')
 })
+
+const isAdmin = computed(()=>store.getters.getIsAdmin)
 
 const imageUrl = computed(() => store.getters['imagepost/uploadedImageUrl'])
 
