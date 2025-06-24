@@ -45,7 +45,7 @@
     <!-- Recommended now on the right -->
     <div class="md:w-2/6 w-full mt-6 md:mt-0">
       <h2 class="text-2xl font-bold mb-4 text-gray-500">Recommended</h2>
-      <Recommended v-if="game?.category_id" :category_id="game?.category_id" :game-id="gameId" />
+      <Recommended v-if="game?.category_id" :category_id="game?.category_id"/>
 
     </div>
   </div>
