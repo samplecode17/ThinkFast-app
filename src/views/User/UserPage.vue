@@ -20,11 +20,17 @@
         </div>
 
 
-        <div class="mx-auto justify-center grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div v-if="currentUser == userId" class="mx-auto justify-center grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <GameCard v-for="game in filteredGames" :key="game.id" :game-name="game.name" :creator-i-d="game.user_id"
                 :up-votes="game.upVotes" :button-href="`/creator/game/${game.id}`" :image-link="game.image"
                 button-name="Edit" class="break-inside-avoid mb-4" />
         </div>
+        <div v-else class="mx-auto justify-center grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <GameCard v-for="game in filteredGames" :key="game.id" :game-name="game.name" :creator-i-d="game.user_id"
+                :up-votes="game.upVotes" :button-href="`/games/play/${game.id}`" :image-link="game.image"
+                button-name="Play" class="break-inside-avoid mb-4" />
+        </div>
+
 
     </div>
 </template>
@@ -46,6 +52,8 @@ onBeforeMount(async () => {
     await store.dispatch('getMyGames', userId)
     await store.dispatch('getUserCategories', userId)
 })
+
+const currentUser = computed(()=>store.getters.getUserId)
 
 const games = computed(() => store.getters.stateMyGames)
 const categories = computed(() => store.getters.stateUserCategories)
