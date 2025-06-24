@@ -28,7 +28,6 @@ import RecomendGameCard from '../cards/RecomendGameCard.vue';
 
 const props = defineProps({
     category_id: String,
-    gameId: String,
 });
 
 const store = useStore();
@@ -39,10 +38,12 @@ onBeforeMount(async () => {
     await store.dispatch('getUsedCategories');
 });
 
+const actualGame = computed(()=>store.getters.stateGame)
+
 const games = computed(() => store.getters.stateGames);
 
 // Filter out current game
 const filteredGames = computed(() =>
-    games.value?.filter((game) => game?.id !== props.gameId)
+    games.value?.filter((game) => game?.id !== actualGame.value?.id)
 );
 </script>
